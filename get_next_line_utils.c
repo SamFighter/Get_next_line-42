@@ -6,7 +6,7 @@
 /*   By: salabbe <salabbe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:31:13 by salabbe           #+#    #+#             */
-/*   Updated: 2024/11/12 15:45:26 by salabbe          ###   ########.fr       */
+/*   Updated: 2024/11/14 09:46:25 by salabbe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	}
 	return ((void *) tab);
 }
-size_t	ft_strlen(const char *str)
+
+int	ft_strlen(const char *str)
 {
-	size_t	i;
+	int		i;
 
 	i = 0;
 	if (!str)
@@ -70,7 +71,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-int		ft_strchr(const char *s)
+int	ft_isnewline(const char *s)
 {
 	int	i;
 
