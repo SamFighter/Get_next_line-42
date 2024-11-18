@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: salabbe <salabbe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:31:08 by salabbe           #+#    #+#             */
-/*   Updated: 2024/11/18 11:33:46 by salabbe          ###   ########.fr       */
+/*   Updated: 2024/11/18 11:33:33 by salabbe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static char	*stash = NULL;
+	static char	*stash[1024];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = NULL;
-	stash = gen_stash(stash, fd);
-	if (stash == NULL || stash[0] == '\0')
+	stash[fd] = gen_stash(stash[fd], fd);
+	if (stash[fd] == NULL || stash[fd][0] == '\0')
 	{
-		free(stash);
-		stash = NULL;
+		free(stash[fd]);
+		stash[fd] = NULL;
 		return (NULL);
 	}
-	line = extract_line(stash, line);
+	line = extract_line(stash[fd], line);
 	if (line == NULL || line[0] == '\0')
 	{
-		free(stash);
-		stash = NULL;
+		free(stash[fd]);
+		stash[fd] = NULL;
 		free(line);
 		return (NULL);
 	}
-	stash = clean_stash(stash);
+	stash[fd] = clean_stash(stash[fd]);
 	return (line);
 }
 
